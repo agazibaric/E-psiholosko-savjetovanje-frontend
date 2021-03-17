@@ -15,7 +15,7 @@ import { GlobalStyle } from '../styles/global-styles';
 import { HomePage } from './pages/HomePage/Loadable';
 import { NotFoundPage } from './pages/NotFoundPage/Loadable';
 import { useTranslation } from 'react-i18next';
-import { Login, Profile, Register } from './pages';
+import { Login, Profile, Register, Wizard } from './pages';
 import { PrivateRoute } from './components/PrivateRoute';
 
 export function App() {
@@ -46,6 +46,7 @@ export function App() {
           component={Register}
         />
         <PrivateRoute exact path="/profile" component={Profile} />
+        <PrivateRoute exact path="/wizard" component={Wizard} />
 
         <Route component={NotFoundPage} />
       </Switch>
