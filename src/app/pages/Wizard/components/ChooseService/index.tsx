@@ -1,5 +1,5 @@
-import { Container, Grid, makeStyles } from '@material-ui/core';
-import React from 'react';
+import { Button, Container, Grid, Grow, makeStyles } from '@material-ui/core';
+import React, { useState } from 'react';
 import { CategoryCard } from './CategoryCard';
 
 // Array of services group by category
@@ -113,29 +113,52 @@ const groups = [
 const useStyles = makeStyles({
   main: {
     marginTop: '3rem',
+    marginBottom: '3rem',
   },
 });
 
-const getCategoryElements = () => {
-  return groups.map(group => {
+const getCategoryElements = selectCategory => {
+  return groups.map((group, index) => {
     return (
-      <Grid item xs={6}>
-        <CategoryCard group={group} />
-      </Grid>
+      <Grow in={true} timeout={500 * (index + 1)}>
+        <Grid item xs={12} sm={12} md={6}>
+          <CategoryCard group={group} onSelect={() => selectCategory(group)} />
+        </Grid>
+      </Grow>
     );
   });
 };
 
 const ChooseService = () => {
   const classes = useStyles();
+  const [selected, setSelected] = useState(null);
+  const [step, setStep] = useState(0);
+
+  const handleBack = () => {
+    setStep(prevActiveStep => prevActiveStep - 1);
+  };
+
+  const selectCategory = category => {
+    console.log(category);
+    setSelected(category);
+    setStep(1);
+  };
 
   return (
     <div>
       <Container maxWidth="md" className={classes.main}>
-        <Grid container spacing={8}>
-          {getCategoryElements()}
-        </Grid>
+        {step === 0 && (
+          <Grid container spacing={5} alignItems="center" justify="center">
+            {getCategoryElements(selectCategory)}
+          </Grid>
+        )}
+        {step === 1 && <div>Step 2</div>}
       </Container>
+      <div>
+        <Button disabled={step === 0} onClick={handleBack}>
+          Back
+        </Button>
+      </div>
     </div>
   );
 };
