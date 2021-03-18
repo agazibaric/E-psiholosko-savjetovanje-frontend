@@ -19,7 +19,12 @@ import { StepIconProps } from '@material-ui/core/StepIcon';
 import { Helmet } from 'react-helmet-async';
 import { NavBar } from 'app/components';
 import { Container } from '@material-ui/core';
-import { ChooseDoctor, ChooseService, DescribeProblem } from './components';
+import {
+  ChooseDoctor,
+  ChooseService,
+  DescribeProblem,
+  WizardWelcome,
+} from './components';
 import { Service } from 'types';
 
 const ColorlibConnector = withStyles({
@@ -135,6 +140,10 @@ const Wizard = () => {
     handleNext();
   };
 
+  const handleContinueWizardWelcome = () => {
+    handleNext();
+  };
+
   return (
     <>
       <Helmet>
@@ -173,14 +182,17 @@ const Wizard = () => {
             <div>
               <Container>
                 {activeStep === 0 && (
+                  <WizardWelcome handleContinue={handleContinueWizardWelcome} />
+                )}
+                {activeStep === 1 && (
                   <ChooseService
                     handleServiceSelected={handleServiceSelected}
                   />
                 )}
 
-                {activeStep === 1 && <DescribeProblem />}
+                {activeStep === 2 && <DescribeProblem />}
 
-                {activeStep === 2 && <ChooseDoctor />}
+                {activeStep === 3 && <ChooseDoctor />}
               </Container>
 
               <div>
