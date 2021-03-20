@@ -7,19 +7,10 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '60%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
+    alignItems: 'center',
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -33,15 +24,17 @@ const Profile = () => {
   const [newPassword, setNewPassword] = useState<string>('');
   const [repeatPassword, setRepeatPassword] = useState<string>('');
 
+  function validateForm() {
+    return (
+      oldPassword.length > 0 &&
+      newPassword.length > 0 &&
+      newPassword === repeatPassword
+    );
+  }
+
   const handleChangePassword = event => {
       event.preventDefault();
-
-      if(oldPassword === newPassword) {
-        throw new Error("Your new password cannot be the same as your old one!");
-      } else if(newPassword === repeatPassword) {
-        throw new Error("New and repeated passwords are not the same!");
-      }
-      
+    
   };
 
   return (
@@ -53,7 +46,7 @@ const Profile = () => {
       <NavBar />
       <Container component="main">
         <div>Profile</div>
-        <form className={classes.form} noValidate onSubmit={handleChangePassword}>
+        <form className={classes.form} onSubmit={handleChangePassword}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -98,6 +91,7 @@ const Profile = () => {
               fullWidth
               variant="contained"
               color="primary"
+              disabled={!validateForm()}
               className={classes.submit}
             >
               Save Changes
