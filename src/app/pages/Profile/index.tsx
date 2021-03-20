@@ -1,9 +1,49 @@
 import { Container } from '@material-ui/core';
 import { NavBar } from 'app/components';
-import React from 'react';
+import React, {useState} from 'react';
 import { Helmet } from 'react-helmet-async';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 const Profile = () => {
+  const classes = useStyles();
+
+  const [oldPassword, setOldPassword] = useState<string>('');
+  const [newPassword, setNewPassword] = useState<string>('');
+  const [repeatPassword, setRepeatPassword] = useState<string>('');
+
+  const handleChangePassword = event => {
+      event.preventDefault();
+
+      if(oldPassword === newPassword) {
+        throw new Error("Your new password cannot be the same as your old one!");
+      } else if(newPassword === repeatPassword) {
+        throw new Error("New and repeated passwords are not the same!");
+      }
+      
+  };
+
   return (
     <>
       <Helmet>
@@ -13,6 +53,56 @@ const Profile = () => {
       <NavBar />
       <Container component="main">
         <div>Profile</div>
+        <form className={classes.form} noValidate onSubmit={handleChangePassword}>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="oldpassword"
+              label="Old Password"
+              name="oldpassword"
+              autoComplete="oldpassword"
+              autoFocus
+              value={oldPassword}
+              onChange={e => setOldPassword(e.target.value)}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="newpassword"
+              label="New Password"
+              type="newpassword"
+              id="newpassword"
+              autoComplete="new-password"
+              value={newPassword}
+              onChange={e => setNewPassword(e.target.value)}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="repeatpassword"
+              label="Repeat Password"
+              type="repeatpassword"
+              id="repeatpassword"
+              autoComplete="repeat-password"
+              value={repeatPassword}
+              onChange={e => setRepeatPassword(e.target.value)}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Save Changes
+            </Button>           
+          </form>
       </Container>
     </>
   );
