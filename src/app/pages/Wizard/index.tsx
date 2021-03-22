@@ -10,11 +10,9 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import StepConnector from '@material-ui/core/StepConnector';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import { StepIconProps } from '@material-ui/core/StepIcon';
 import { Helmet } from 'react-helmet-async';
-import { NavBar } from 'app/components';
+import { NavBar, Button, Typography } from 'app/components';
 import { Container } from '@material-ui/core';
 import {
   ChooseDoctor,

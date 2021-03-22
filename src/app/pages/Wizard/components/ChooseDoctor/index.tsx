@@ -1,6 +1,7 @@
-import { Button, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import React, { useState } from 'react';
 import DoctorCard from './DoctorCard';
+import { Button } from 'app/components';
 
 const doctors = [
   {

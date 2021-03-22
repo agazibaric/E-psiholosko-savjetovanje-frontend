@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { NavBar } from 'app/components';
 import { Masthead } from './Masthead';
 import { Features } from './Features';
-import { PageWrapper } from 'app/components/PageWrapper';
+import { PageWrapper } from 'app/components/backup/PageWrapper';
 
 export function HomePage() {
   return (

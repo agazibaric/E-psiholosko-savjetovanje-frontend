@@ -1,12 +1,12 @@
+import { makeStyles } from '@material-ui/core';
+import React from 'react';
 import {
   Card,
   CardActionArea,
   CardContent,
   CardMedia,
-  makeStyles,
   Typography,
-} from '@material-ui/core';
-import React from 'react';
+} from 'app/components';
 
 const useStyles = makeStyles({
   card: {

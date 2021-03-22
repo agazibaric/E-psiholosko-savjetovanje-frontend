@@ -4,7 +4,7 @@
 
 import * as React from 'react';
 import { lazyLoad } from 'utils/loadable';
-import { LoadingIndicator } from 'app/components/LoadingIndicator';
+import { LoadingIndicator } from 'app/components/backup/LoadingIndicator';
 import styled from 'styled-components/macro';
 
 const LoadingWrapper = styled.div`
