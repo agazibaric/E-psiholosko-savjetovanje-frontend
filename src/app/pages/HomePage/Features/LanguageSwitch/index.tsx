@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { FormLabel } from 'app/components/FormLabel';
-import { Radio } from 'app/components/Radio';
+import { FormLabel } from 'app/components/backup/FormLabel';
+import { Radio } from 'app/components/backup/Radio';
 import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
 import { messages } from './messages';

@@ -1,19 +1,18 @@
+import { FormControl, Grid } from '@material-ui/core';
+import { componentConstants } from 'constants/component.constants';
+import React, { useState } from 'react';
+import { AnswerOptions, Question } from 'types';
 import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  FormControl,
-  FormControlLabel,
-  Grid,
   Radio,
   RadioGroup,
   TextField,
   Typography,
-} from '@material-ui/core';
-import { componentConstants } from 'constants/component.constants';
-import React, { useState } from 'react';
-import { AnswerOptions, Question } from 'types';
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  FormControlLabel,
+} from 'app/components';
 
 const OTHER_LABEL = 'OTHER';
 

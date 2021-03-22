@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import { Logos } from './Logos';
 import { Title } from './components/Title';
 import { Lead } from './components/Lead';
-import { A } from 'app/components/A';
+import { A } from 'app/components/backup/A';
 
 export function Masthead() {
   return (

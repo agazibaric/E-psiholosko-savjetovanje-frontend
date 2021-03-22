@@ -1,11 +1,13 @@
-import { Button } from '@material-ui/core';
+import { Button } from 'app/components';
 import React from 'react';
 import styled from 'styled-components';
 
+const backgroundImage =
+  process.env.PUBLIC_URL + '/images/wizardLandingImage.jpg';
+
 const WelcomeContainer = styled.div`
   position: relative;
-  background-image: url(${process.env.PUBLIC_URL +
-  '/images/wizardLandingImage.jpg'});
+  background-image: url(${backgroundImage});
   width: 1280px;
   height: 720px;
   border-radius: 3%;

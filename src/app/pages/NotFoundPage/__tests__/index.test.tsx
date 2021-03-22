@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { themes } from 'styles/theme/themes';
 import { HelmetProvider } from 'react-helmet-async';
 import renderer from 'react-test-renderer';
-import { Link } from 'app/components/Link';
+import { Link } from 'app/components/backup/Link';
 
 const renderPage = () =>
   renderer.create(

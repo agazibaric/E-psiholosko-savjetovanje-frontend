@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components/macro';
 import { P } from './P';
-import { Link } from 'app/components/Link';
+import { Link } from 'app/components/backup/Link';
 import { NavBar } from 'app/components';
 import { Helmet } from 'react-helmet-async';
 import { StyleConstants } from 'styles/StyleConstants';
