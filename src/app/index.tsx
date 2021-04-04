@@ -17,6 +17,7 @@ import { NotFoundPage } from './pages/NotFoundPage/Loadable';
 import { useTranslation } from 'react-i18next';
 import { Login, Profile, Register, Wizard } from './pages';
 import { PrivateRoute } from './components/PrivateRoute';
+import ChatPage from './pages/ChatPage';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -47,6 +48,7 @@ export function App() {
         />
         <PrivateRoute exact path="/profile" component={Profile} />
         <PrivateRoute exact path="/wizard" component={Wizard} />
+        <Route exact path="/chat" component={ChatPage} />
 
         <Route component={NotFoundPage} />
       </Switch>

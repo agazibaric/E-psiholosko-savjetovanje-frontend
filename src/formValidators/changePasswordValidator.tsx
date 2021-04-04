@@ -1,14 +1,14 @@
-const validators = {
-    validateForm,
+function validateChangePasswordForm(
+  oldPassword: string,
+  newPassword: string,
+  repeatPassword: string,
+) {
+  //TODO: Check whether old password is correct
+  return (
+    oldPassword.length > 0 &&
+    newPassword.length > 0 &&
+    newPassword === repeatPassword
+  );
 }
 
-function validateForm(oldPassword: string, newPassword: string, repeatPassword: string) {
-    //TODO: Check whether old password is correct
-    return (
-      oldPassword.length > 0 &&
-      newPassword.length > 0 &&
-      newPassword === repeatPassword
-    );
-  }
-
-export { validateForm };
+export { validateChangePasswordForm };

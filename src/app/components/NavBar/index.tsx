@@ -215,6 +215,9 @@ export default function NavBar() {
             <NavLink className={classes.link} to="/wizard">
               Wizard
             </NavLink>
+            <NavLink className={classes.link} to="/chat">
+              Chat
+            </NavLink>
             <Button onClick={() => userService.logout()}>Logout</Button>
           </Grid>
           <div className={classes.search}>
