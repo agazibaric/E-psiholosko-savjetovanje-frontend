@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import { Logo } from './Logo';
 import { StyleConstants } from 'styles/StyleConstants';
 import { Nav } from './Nav';
-import { PageWrapper } from '../PageWrapper';
+import { PageWrapper } from '../backup/PageWrapper';
 
 export default function NavBar() {
   return (

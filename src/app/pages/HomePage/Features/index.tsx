@@ -4,7 +4,7 @@ import { Title } from '../components/Title';
 import { Lead } from '../components/Lead';
 import { SubTitle } from '../components/SubTitle';
 import { P } from '../components/P';
-import { A } from 'app/components/A';
+import { A } from 'app/components/backup/A';
 import { GithubRepoForm } from './GithubRepoForm';
 import { ThemeSwitch } from './ThemeSwitch';
 import { LanguageSwitch } from './LanguageSwitch';
@@ -18,7 +18,7 @@ import { ReactComponent as InstantFeedbackIcon } from './assets/instant-feedback
 import { ReactComponent as ScaffoldingIcon } from './assets/scaffolding.svg';
 import { ReactComponent as CodeAnalysisIcon } from './assets/code-analysis.svg';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'app/components/Link';
+import { Link } from 'app/components/backup/Link';
 import { messages } from '../messages';
 
 export function Features() {

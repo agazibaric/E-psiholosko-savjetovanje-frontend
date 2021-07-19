@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import {
   makeStyles,
   Theme,
@@ -9,17 +9,24 @@ import clsx from 'clsx';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import SettingsIcon from '@material-ui/icons/Settings';
-import GroupAddIcon from '@material-ui/icons/GroupAdd';
-import VideoLabelIcon from '@material-ui/icons/VideoLabel';
 import StepConnector from '@material-ui/core/StepConnector';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import { StepIconProps } from '@material-ui/core/StepIcon';
 import { Helmet } from 'react-helmet-async';
-import { NavBar } from 'app/components';
+import { NavBar, Button, Typography } from 'app/components';
 import { Container } from '@material-ui/core';
-import { ChooseDoctor, ChooseService, DescribeProblem } from './components';
+import {
+  ChooseDoctor,
+  ChooseService,
+  DescribeProblem,
+  WizardWelcome,
+} from './components';
+import { Apps, Payment, People, QuestionAnswer } from '@material-ui/icons';
+import { Checkout } from './components/Checkout';
+import {
+  initialWizardState,
+  WizardAction,
+  wizardReducer,
+} from './reducers/wizardReducer';
 
 const ColorlibConnector = withStyles({
   alternativeLabel: {
@@ -73,9 +80,10 @@ function ColorlibStepIcon(props: StepIconProps) {
   const { active, completed } = props;
 
   const icons: { [index: string]: React.ReactElement } = {
-    1: <SettingsIcon />,
-    2: <GroupAddIcon />,
-    3: <VideoLabelIcon />,
+    1: <Apps />,
+    2: <QuestionAnswer />,
+    3: <People />,
+    4: <Payment />,
   };
 
   return (
@@ -106,13 +114,15 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function getSteps() {
-  return ['Choose service', 'Describe problem', 'Choose doctor'];
+  return ['Choose service', 'Describe problem', 'Choose doctor', 'Checkout'];
 }
 
 const Wizard = () => {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = useState(0);
   const steps = getSteps();
+
+  const [wizardState, dispatch] = useReducer(wizardReducer, initialWizardState);
+  const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
     setActiveStep(prevActiveStep => prevActiveStep + 1);
@@ -126,6 +136,23 @@ const Wizard = () => {
     setActiveStep(0);
   };
 
+  const handleContinueWizardWelcome = () => {
+    handleNext();
+  };
+
+  const dispatchWrapper: React.Dispatch<WizardAction> = value => {
+    dispatch(value);
+    handleNext();
+  };
+
+  const handleCheckout = () => {
+    handleWizardDone();
+  };
+
+  const handleWizardDone = () => {
+    console.log(wizardState);
+  };
+
   return (
     <>
       <Helmet>
@@ -137,21 +164,24 @@ const Wizard = () => {
       </Helmet>
       <NavBar />
       <div className={classes.root}>
-        <Stepper
-          alternativeLabel
-          activeStep={activeStep}
-          connector={<ColorlibConnector />}
-        >
-          {steps.map(label => (
-            <Step key={label}>
-              <StepLabel StepIconComponent={ColorlibStepIcon}>
-                {label}
-              </StepLabel>
-            </Step>
-          ))}
-        </Stepper>
+        {activeStep > 0 && (
+          <Stepper
+            alternativeLabel
+            activeStep={activeStep - 1}
+            connector={<ColorlibConnector />}
+          >
+            {steps.map(label => (
+              <Step key={label}>
+                <StepLabel StepIconComponent={ColorlibStepIcon}>
+                  {label}
+                </StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+        )}
+
         <div>
-          {activeStep === steps.length ? (
+          {activeStep === steps.length + 1 ? (
             <div>
               <Typography className={classes.instructions}>
                 All steps completed - you&apos;re finished
@@ -163,11 +193,33 @@ const Wizard = () => {
           ) : (
             <div>
               <Container>
-                {activeStep === 0 && <ChooseService />}
+                {activeStep === 0 && (
+                  <WizardWelcome handleContinue={handleContinueWizardWelcome} />
+                )}
+                {activeStep === 1 && (
+                  <ChooseService
+                    //handleServiceSelected={handleServiceSelected}
+                    dispatch={dispatchWrapper}
+                  />
+                )}
 
-                {activeStep === 1 && <DescribeProblem />}
+                {activeStep === 2 && (
+                  <DescribeProblem
+                    dispatch={dispatchWrapper}
+                    //handleAnswersSubmit={handleAnswersSubmit}
+                  />
+                )}
 
-                {activeStep === 2 && <ChooseDoctor />}
+                {activeStep === 3 && (
+                  <ChooseDoctor
+                    dispatch={dispatchWrapper}
+                    //handleDoctorSelect={handleDoctorSelect}
+                  />
+                )}
+
+                {activeStep === 4 && (
+                  <Checkout handleCheckout={handleCheckout} />
+                )}
               </Container>
 
               <div>
@@ -177,14 +229,6 @@ const Wizard = () => {
                   className={classes.button}
                 >
                   Back
-                </Button>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleNext}
-                  className={classes.button}
-                >
-                  {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                 </Button>
               </div>
             </div>
